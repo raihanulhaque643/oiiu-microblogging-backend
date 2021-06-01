@@ -10,8 +10,8 @@ const blogPostSchema = new mongoose.Schema(
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-      }
+        ref: "User",
+      },
     ],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
@@ -24,6 +24,6 @@ const blogPostSchema = new mongoose.Schema(
   }
 );
 
-const BlogPost = mongoose.model('BlogPost', blogPostSchema);
+const BlogPost = mongoose.model("BlogPost", blogPostSchema);
 
 module.exports = BlogPost;
