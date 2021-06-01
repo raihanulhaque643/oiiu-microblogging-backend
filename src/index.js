@@ -1,5 +1,5 @@
 const express = require("express");
-require('./src/db/mongoose')
+require('./db/mongoose')
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -11,6 +11,10 @@ const cors = require('cors')
 app.use(cors({origin: '*'}))
 
 app.use(express.json())
+
+const authRoutes = require("./routes/auth");
+app.use("/oiiu", authRoutes);
+
 
 app.get("/", (req, res) => {
   res.json({ message: "API Working…" });
