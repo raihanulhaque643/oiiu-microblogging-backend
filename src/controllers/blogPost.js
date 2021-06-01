@@ -41,3 +41,27 @@ exports.fetchAllBlogPosts = async (req, res) => {
     res.status(500).send({ e });
   }
 };
+
+exports.reactToBlogPost = async (req, res) => {
+  try {
+    const blogPost = await BlogPost.findOne({ _id: req.params.id });
+
+    if (!blogPost) {
+      return res.status(404).send();
+    }
+
+    const _userId = req.user._id;
+
+    if (blogPost.likes.includes(_userId)) {
+      const ind = blogPost.likes.indexOf(_userId);
+      if (ind > -1) blogPost.likes.splice(ind, 1);
+    } else {
+      blogPost.likes.unshift(_userId);
+    }
+
+    await blogPost.save();
+    res.send(blogPost);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};

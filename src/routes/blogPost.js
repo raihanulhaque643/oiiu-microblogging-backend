@@ -4,6 +4,7 @@ const {
   createBlogPost,
   deleteBlogPost,
   fetchAllBlogPosts,
+  reactToBlogPost
 } = require("../controllers/blogPost");
 const router = new express.Router();
 const BlogPost = require("../models/blogPost");
@@ -14,7 +15,11 @@ router.post("/create/blogpost", requiredSignin, createBlogPost);
 // delete a blog
 router.delete("/delete/blogpost/:id", requiredSignin, deleteBlogPost);
 
-// get all opinions of all users
+// get all blogs
 router.get("/get/allblogposts", requiredSignin, fetchAllBlogPosts);
+
+// like a blogpost
+router.patch("/react/blogpost/:id", requiredSignin, reactToBlogPost);
+
 
 module.exports = router;

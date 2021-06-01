@@ -7,12 +7,7 @@ const blogPostSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    likes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    likes: [],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
