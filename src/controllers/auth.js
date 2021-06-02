@@ -27,7 +27,7 @@ exports.signup = (req, res) => {
       }
 
       if (data) {
-        return res.status(400).json({
+        return res.status(201).json({
           message: "User created successfully!",
         });
       }
