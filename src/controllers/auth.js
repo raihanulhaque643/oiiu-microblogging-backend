@@ -36,13 +36,14 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  User.findOne({ email: req.body.email }).exec((error, user) => {
+  User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (error) {
       return response.status(400).json({ error });
     }
 
     if (user) {
-      if (user.authenticate(req.body.password)) {
+      const isPassword = await user.authenticate(req.body.password);
+      if (isPassword) {
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
           expiresIn: "1d",
         });
@@ -58,7 +59,7 @@ exports.signin = (req, res) => {
         });
       } else {
         return res.status(400).json({
-          message: "Something went wrong",
+          message: "Incorrect password!",
         });
       }
     } else {
